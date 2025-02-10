@@ -42,6 +42,7 @@ import com.vexsoftware.votifier.util.TokenUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.ByteArrayInputStream;
@@ -440,6 +441,17 @@ public class NuVotifierBukkit extends JavaPlugin implements VoteHandler, Votifie
             getLogger().log(Level.SEVERE, "A vote was received, but you don't have any listeners available to listen for it.");
             getLogger().log(Level.SEVERE, "See https://github.com/NuVotifier/NuVotifier/wiki/Setup-Guide#vote-listeners for");
             getLogger().log(Level.SEVERE, "a list of listeners you can configure.");
+        }
+
+        if (getConfig().getBoolean("ignore-offline-votes", false)) {
+            Player player = Bukkit.getPlayer(vote.getUsername());
+            if (player == null) {
+                if (debug) {
+                    getLogger().log(Level.WARNING, "The player named " + vote.getUsername() + " is not online on this server, the vote will be skipped for this server.");
+                }
+
+                return;
+            }
         }
 
         if (!isFolia) {

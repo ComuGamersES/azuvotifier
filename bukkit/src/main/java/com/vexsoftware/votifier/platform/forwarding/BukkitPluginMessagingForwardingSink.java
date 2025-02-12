@@ -12,22 +12,17 @@ import java.util.logging.Level;
 
 /**
  * Created by Joe Hirschfeld on 10/20/2015.
+ * And modified by litjisz on 12/02/2025.
  */
 public class BukkitPluginMessagingForwardingSink extends AbstractPluginMessagingForwardingSink implements PluginMessageListener {
 
     private final Plugin plugin;
     private final String channel;
 
-    public BukkitPluginMessagingForwardingSink(
-            Plugin plugin,
-            String channel,
-            ForwardedVoteListener listener,
-            LoggingAdapter logger
-    ) {
+    public BukkitPluginMessagingForwardingSink(Plugin plugin, String channel, ForwardedVoteListener listener, LoggingAdapter logger) {
         super(listener, logger);
-
-        this.channel = channel;
         this.plugin = plugin;
+        this.channel = channel;
     }
 
     @Override
@@ -42,9 +37,9 @@ public class BukkitPluginMessagingForwardingSink extends AbstractPluginMessaging
     }
 
     @Override
-    public void onPluginMessageReceived(@NotNull String s, @NotNull Player player, byte @NotNull [] bytes) {
+    public void onPluginMessageReceived(@NotNull String receivedChannel, @NotNull Player player, byte @NotNull [] message) {
         try {
-            this.handlePluginMessage(bytes);
+            handlePluginMessage(message);
         } catch (Exception e) {
             plugin.getLogger().log(Level.SEVERE, "There was an unknown error when processing a forwarded vote.", e);
         }

@@ -1,8 +1,6 @@
 package com.vexsoftware.votifier.platform.scheduler;
 
 import com.vexsoftware.votifier.NuVotifierBukkit;
-import com.vexsoftware.votifier.platform.scheduler.ScheduledVotifierTask;
-import com.vexsoftware.votifier.platform.scheduler.VotifierScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.concurrent.TimeUnit;
@@ -11,35 +9,38 @@ public class BukkitScheduler implements VotifierScheduler {
 
     private final NuVotifierBukkit plugin;
 
+    private static final long MILLIS_PER_TICK = 50L;
+
     public BukkitScheduler(NuVotifierBukkit plugin) {
         this.plugin = plugin;
     }
 
-    private int toTicks(int time, TimeUnit unit) {
-        return (int) (unit.toMillis(time) / 50);
+    private int convertToTicks(int time, TimeUnit unit) {
+        return (int) (unit.toMillis(time) / MILLIS_PER_TICK);
     }
 
     @Override
     public ScheduledVotifierTask delayedOnPool(Runnable runnable, int delay, TimeUnit unit) {
-        return new BukkitTaskWrapper(
-                plugin.getServer().getScheduler().runTaskLaterAsynchronously(plugin, runnable, toTicks(delay, unit))
-        );
+        int delayTicks = convertToTicks(delay, unit);
+        BukkitTask task = plugin.getServer().getScheduler()
+                .runTaskLaterAsynchronously(plugin, runnable, delayTicks);
+        return new BukkitTaskWrapper(task);
     }
 
     @Override
     public ScheduledVotifierTask repeatOnPool(Runnable runnable, int delay, int repeat, TimeUnit unit) {
-        return new BukkitTaskWrapper(
-                plugin.getServer().getScheduler().runTaskTimerAsynchronously(
-                        plugin, runnable, toTicks(delay, unit), toTicks(repeat, unit)
-                )
-        );
+        int delayTicks = convertToTicks(delay, unit);
+        int repeatTicks = convertToTicks(repeat, unit);
+        BukkitTask task = plugin.getServer().getScheduler()
+                .runTaskTimerAsynchronously(plugin, runnable, delayTicks, repeatTicks);
+        return new BukkitTaskWrapper(task);
     }
 
     private static class BukkitTaskWrapper implements ScheduledVotifierTask {
 
         private final BukkitTask task;
 
-        private BukkitTaskWrapper(BukkitTask task) {
+        BukkitTaskWrapper(BukkitTask task) {
             this.task = task;
         }
 

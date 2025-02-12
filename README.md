@@ -1,4 +1,11 @@
-# AzuVotifier ![Build status](https://img.shields.io/github/actions/workflow/status/azurejelly/azuvotifier/build.yml?logo=githubactions&logoColor=ffffff) ![Docker Pulls](https://img.shields.io/docker/pulls/azurejelly/standalone-nuvotifier?logo=docker) [![Modrinth](https://img.shields.io/modrinth/dt/azuvotifier?logo=modrinth&color=00AF5C)](https://modrinth.com/plugin/azuvotifier)
+# CGVotifier - AzuVotifier fork adapted for ComuGamers
+```JSON
+This fork adds small modifications that have been implemented after finding some problems in the operation of it in the production
+release in ComuGamers Network. These modifications maybe useful for other servers.
+```
+
+Get the original AzuVotifier here: [Repo](https://github.com/azurejelly/azuvotifier), [Modrinth](https://modrinth.com/plugin/azuvotifier)
+
 A fork of NuVotifier with Redis forwarding support, a standalone server implementation and Sponge 11+ support. From the original README:
 > NuVotifier is a secure alternative to using the original Votifier project.
 > NuVotifier will work in place of Votifier - any vote listener that supports
@@ -10,7 +17,7 @@ A fork of NuVotifier with Redis forwarding support, a standalone server implemen
 - [Developer Information](https://github.com/NuVotifier/NuVotifier/wiki/Developer-Documentation)
 
 ## Supported platforms
-AzuVotifier is currently supported on the following platforms:
+CGVotifier is currently supported on the following platforms:
 - CraftBukkit, Spigot, Paper, Pufferfish or Purpur (1.8.8+)
   - Older versions might work but no support will be provided
   - Any fork without significant breaking changes should also work

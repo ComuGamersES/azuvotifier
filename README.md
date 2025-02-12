@@ -1,8 +1,7 @@
 # CGVotifier - AzuVotifier fork adapted for ComuGamers
-```JSON
-This fork adds small modifications that have been implemented after finding some problems in the operation of it in the production
-release in ComuGamers Network. These modifications maybe useful for other servers.
-```
+
+> This fork adds small modifications that have been implemented after finding some problems in the operation of it in the production
+> release in ComuGamers Network. These modifications maybe useful for other servers.
 
 Get the original AzuVotifier here: [Repo](https://github.com/azurejelly/azuvotifier), [Modrinth](https://modrinth.com/plugin/azuvotifier)
 
